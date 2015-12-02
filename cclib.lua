@@ -9,6 +9,7 @@ local string = global.string
 local io = global.io
 local table = global.table
 local error = global.error
+local tonumber = global.tonumber
 
 function saveJson(filename, table)
     local str = json.encode(table)
@@ -71,7 +72,7 @@ function request(method, postData)
         -- 获取 json 成功
         local resultStr = table.concat(sinkTable)
         local resultJson = json.decode(resultStr)
-        local resultCode = resultJson.resultCode
+        local resultCode = tonumber(resultJson.resultCode)
         return resultCode, resultJson, resultStr
     else
         -- 获取 json 失败

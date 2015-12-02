@@ -51,7 +51,7 @@ if mode == 'login' then
         os.exit(32)
     end
     local resultCode, result = cclib.login(user.username, user.password, network.wlanUserIp)
-    if resultCode == "0" then
+    if resultCode == 0 then
         network.usedFlow = result.usedflow
         network.totalFlow = result.totalflow
         network.balance = result.surplusmoney
@@ -74,7 +74,7 @@ elseif mode == 'logout' then
         os.exit(32)
     end
     local resultCode = cclib.logout(network.wlanUserIp)
-    if resultCode == "0" then
+    if resultCode == 0 then
         os.exit(0)
     else
         local errMessage = cclib.logoutCodes[resultCode]

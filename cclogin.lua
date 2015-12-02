@@ -28,19 +28,19 @@ end
 
 -- 读取网络配置
 local success, network = pcall(cclib.readJson, "network.json")
-if not success or network.wlanUserIp == nil then
-    -- 尝试读取本地 ip
-    local success, wlanUserIp = pcall(cclib.getLocalIp)
-    if success then
-        network = {wlanUserIp = wlanUserIp}
-    else
-        -- 尝试检查登录
-        local loggedIn, err, wlanUserIp = cclib.checkIfLogin()
-        if wlanUserIp then
-            network = {wlanUserIp = wlanUserIp}
-        else
-            network = {}
-        end
+if not success then
+    network = {}
+end
+
+-- 尝试读取本地 ip
+local success, wlanUserIp = pcall(cclib.getLocalIp)
+if success then
+    network.wlanUserIp = wlanUserIp
+else
+    -- 尝试检查登录
+    local loggedIn, err, wlanUserIp = cclib.checkIfLogin()
+    if wlanUserIp then
+        network.wlanUserIp = wlanUserIp
     end
 end
 
